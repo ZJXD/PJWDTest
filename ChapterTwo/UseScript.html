@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>UseScript</title>
+
+    <script type="text/javascript">
+        function sayHi() {
+            alert("Hi!");
+        }
+
+        // 转义字符使用
+        function EscapeCha() {
+            // 正确
+            alert("<\/script>");
+            // 错误，在这里，如果没有用转移字符串'\'，注释时也会有问题
+            // alert("<\/script>");
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <button type="button" onclick="sayHi()">SayHi</button>
+        <button type="button" onclick="EscapeCha()">EscapaCha</button>
+    </div>
+    <div>
+        <button type="button" onclick="LastLoad()">Script In Body</button>
+    </div>
+    <div>
+        <p id="dome">点击这个按钮，获取你的位置：</p>
+        <button type="button" onclick="getLocation()">坐标</button>
+        <div id="mapholder"></div>
+    </div>
+
+    <script type="text/javascript">
+        function LastLoad() {
+            alert("最后加载的 Script！");
+        }
+
+        // 获取当前位置信息
+        var dome = document.getElementById("dome");
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            }
+            else {
+                dome.innerHTML = "Geolocation is not supported by this browser."
+            }
+        }
+
+        function showPosition(position) {
+            debugger
+            var latlon = position.coords.latitude + "," + position.coords.longitude;
+
+            var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="
+                + latlon + "&zoom=14&size=400x300&sensor=false";
+            document.getElementById("mapholder").innerHTML = "<img src='" + img_url + "' />";
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    dome.innerHTML = "User denied the request for Geolocation."
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    dome.innerHTML = "Location information is unavailable."
+                    break;
+                case error.TIMEOUT:
+                    dome.innerHTML = "The request to get user location timed out."
+                    break;
+                case error.UNKNOWN_ERROR:
+                    dome.innerHTML = "An unknown error occurred."
+                    break;
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Variables</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div>
+        <canvas id="myCanvas" width="200" height="100" style="border:1px solid #c3c3c3;">
+            Your browser does not support the canvas element.
+        </canvas>
+    </div>
+    <div >
+        <canvas id="myCanvas1" width="200" height="100" style="border:1px solid #c3c3c3;">
+            Your browser does not support the canvas element.
+        </canvas>
+    </div>
+    <div >
+        <canvas id="myCanvas2" width="700" height="400" style="border:1px solid #c3c3c3;">
+            Your browser does not support the canvas element.
+        </canvas>
+    </div>
+
+    <script type="text/javascript">
+        // 把这个脚本放在 head 中，会报错。因为这里会取 Element，在 head 中页面还没有初始化完成
+
+        // function test() {
+        //     var message = "Hi";
+        //     // alert(message);
+        // }
+        // test();
+        // alert(message);  // 这个调用会报错
+
+        function fillCanvas() {
+            var c = document.getElementById("myCanvas");
+            // 填充区域颜色
+            var cxt = c.getContext("2d");
+            cxt.fillStyle = "#FF0000";
+            cxt.fillRect(0, 0, 150, 75);
+
+            // 画线
+            cxt.moveTo(10, 10);
+            cxt.lineTo(150, 50);
+            cxt.lineTo(10, 50);
+            cxt.stroke();
+
+            // 画圆
+            cxt.beginPath();
+            cxt.arc(170,58,15,Math.PI,Math.PI*2,true);
+            cxt.closePath();
+            cxt.fill();
+
+            // 渐变颜色
+            var c1 = document.getElementById("myCanvas1");
+            var cxt1 = c1.getContext("2d");
+            var grd = cxt1.createLinearGradient(0,0,175,50);
+            grd.addColorStop(0,"#FF0000");
+            grd.addColorStop(1,"#00FF00");
+            cxt1.fillStyle = grd;
+            cxt1.fillRect(0,0,175,50);
+
+            // 添加图片到 canvas
+            var c2 = document.getElementById("myCanvas2");
+            var cxt2 = c2.getContext("2d");
+            var img = new Image();
+            img.src = "canvasTest.jpg";
+            img.onload = function() {
+                console.log("图片加载完成！");
+                cxt2.drawImage(img,30,20,640,360);
+            }
+        }
+        fillCanvas();
+    </script>
+</body>
+
+</html>

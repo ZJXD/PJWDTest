@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DataType</title>
+
+    <style type="text/css">
+        th,
+        td {
+            border: solid 1px;
+            padding: 2px;
+        }
+
+        table {
+            border: solid 1px;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h3>ES5 数据类型</h3>
+        <p>
+            ECMAScript 5 有5中简单的数据类型(也称为基础数据类型)：Undefined、Null、Boolean、Number、String。
+            </br>
+            和一种复杂数据类型：Object，本质上是由一组无序的名值对组成的。
+        </p>
+    </div>
+    <div>
+        <h3>数据类型验证</h3>
+        <p>typeof 判断数据类型：</p>
+        <p id="dataType">数据类型显示区域</p>
+        <label onclick="typeofFun(this.textContent)">Undefined</label>
+        </br>
+        <label onclick="typeofFun(this.textContent)">Null</label>
+        </br>
+        <label onclick="typeofFun(this.textContent)">string</label>
+        </br>
+        <label onclick="typeofFun(this.textContent)">89</label>
+        </br>
+        <label onclick="typeofFun(this.textContent)">true</label>
+    </div>
+    <div>
+        <h3>Undefined</h3>
+        <p>Undefined 类型只有一个值，即特殊的 undefined。在声明一个变量，未对其进行初始化时，就是 undefined。</p>
+        <p>包含 undefined 值的变量和尚未定义的变量还是不一样。</p>
+        <label>var message;</label>
+        </br>
+        <label>alert(message);</label>
+        </br>
+        <label>alert(age);</label>
+        </br>
+        <button onclick="undefinedFun1()">运行上述代码</button>
+        </br>
+        <label>alert(typeof message);</label>
+        </br>
+        <label>alert(typeof age);</label>
+        </br>
+        <button onclick="undefinedFun2()">运行上述代码</button>
+    </div>
+    <div>
+        <h3>Null</h3>
+        <p>Null 是第二个只有一个值的类型，这个特殊的值就是 null。</p>
+        <p>从逻辑角度来看，null 表示一个空对象的指针，而这也正是使用 typeof 操作符检查 null 为“object”的原因了。</p>
+        <p>实际上，undefined 派生自 null 值，因此 ECMA-266 对这两个值的相等性检查是：</p>
+        <label>alert(null == undefined)</label>
+        <button onclick="nullFun()">运算上述代码</button>
+    </div>
+    <div>
+        <h3>Boolean</h3>
+        <table id="boolId">
+            <tr>
+                <th style="width:200px">数据类型</th>
+                <th style="width:200px">转换为 true 的值</th>
+                <th style="width:200px">转换为 false 的值</th>
+            </tr>
+            <tr>
+                <td>Boolean</td>
+                <td>true</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td>String</td>
+                <td>任何非空字符串</td>
+                <td>""</td>
+            </tr>
+            <tr>
+                <td>Number</td>
+                <td>任何非零数值</td>
+                <td>0和NaN</td>
+            </tr>
+            <tr>
+                <td>Object</td>
+                <td>任何非空对象</td>
+                <td>null</td>
+            </tr>
+            <tr>
+                <td>Undefined</td>
+                <td>n/a</td>
+                <td>undefined</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <h3>Number</h3>
+        <p>Number 应该是 ES 最关心的数据类型了，为了支持各种数值类型，ECMA-262定义了不同的<b>数值字面量</b>格式</p>
+        <ul>
+            <li>十进制：let intNum = 55;        // 十进制整数</li>
+            <li>八进制：let octalNum = 070;     // 八进制，要以0开始</li>
+            <li>十六进制：let hexNum = 0xA;     // 十六进制，以0x开头</li>
+        </ul>
+        <p>在数值计算时，八进制、十六进制都是转换为十进制再计算。</p>
+        <p>下面介绍一些数值类型的一些特点</p>
+        <ol>
+            <li>浮点数值</li>
+            <p>所谓浮点数，就是数字中必须包含一个小数点。并且小数点后面必须有一位数。</p>
+            <p>let floatNum1 = 1.1</p>
+            <p>let floatNum2 = 0.1</p>
+            <p>let floatNum3 = .1</p>
+            <p>由于浮点存储空间是整数的两倍，所以会不失时机的把浮点数解析为整数值.</p>
+            <p>let floatNum4 = 1.; // 会解析为 1</p>
+            <p>let floatNum5 = 10.0;    // 会解析为 10</p>
+            <p>浮点有一个很奇特的现象：0.1 + 0.2 = 0.3?  <button onclick = "floatAdd()">计算</button></p>
+            <li>数值范围</li>
+            <p>由于内存的限制，数值的范围是有限的，最小值保存在 Number.MIN_VALUE中，最大值保存在Number.MAX_VALUE中.</p>
+            <p>超出这个范围的值，会被自动转换为 Infinity，正值是 Infinity，负值是 -Infinity.</p>
+            <p id="number_max">Number.MIN_VALUE：，Number.MAX_VALUE：</p><button onclick="NumberMax()">最值</button>
+            <li>NaN</li>
+            <p>NaN,即非数值，是一个特殊的数值，这个数值用于表示一个本来要返回数值的操作数未返回的数值的情况.</p>
+            <p>NaN 有两个非同寻常的特点：1.任何涉及 NaN的操作结果都是NaN；2.NaN和任何值都不相等，包括NaN自己.</p>
+            <p>对此，ECMA定义了 isNaN() 函数，用了判断是否是NaN.</p>
+            <li>数值转换</li>
+            <p>有3个函数可以把非数值的转换为数值：Number()、parseInt()、parseFloat()。第一个是转型函数，可以转换任何类型，后面两个专门把字符串转为数值.</p>
+            <p>Number()解析较为复杂，特别是对字符串：字符串是空的，转换为0；null 转换为0；undefined转换为NaN.</p>
+            <p>parseInt()，第一个非空字符可以解析为数值（包括八进制、十六进制）都可转换，否则返回 NaN.</p>
+            <p>parseFloat()，和上面的解析规则一样，只不过这个返回的是浮点数。而且只能解析十进制。</p>
+        </ol>
+    </div>
+    <div>
+        <h3>String</h3>
+    </div>
+
+    <script>
+        function typeofFun(e) {
+            var t;
+            if (e === '89') {
+                t = 89;
+            }
+            else if (e === 'false' || e === 'true') {
+                t = true;
+            }
+            else if (e === "Null") {
+                t = null;
+            }
+            var d = document.getElementById("dataType");
+            d.textContent = e + "：" + (typeof t);
+        }
+
+        function undefinedFun1() {
+            var message;
+            alert(message);
+            alert(age);
+        }
+
+        function undefinedFun2() {
+            var message;
+            alert(typeof message);
+            alert(typeof age);
+        }
+
+        function nullFun() {
+            alert(null == undefined);
+        }
+
+        function floatAdd(){
+            alert(0.1+0.2);
+        }
+
+        function NumberMax(){
+            let max = document.getElementById("number_max");
+            max.innerHTML = `Number.MIN_VALUE：${Number.MIN_VALUE}，Number.MAX_VALUE：${Number.MAX_VALUE}`;
+        }
+    </script>
+</body>
+
+</html>
